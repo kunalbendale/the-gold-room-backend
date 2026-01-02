@@ -3,31 +3,27 @@ import mongoose from 'mongoose';
 const MONGO_URI: string = process.env.MONGO_URI;
 
 export const connectDatabase = async (): Promise<void> => {
-    try {
-        await mongoose.connect(MONGO_URI);
+  try {
+    const connection = await mongoose.connect(MONGO_URI);
 
-        console.log("✅ MongoDB connected");
-
-        mongoose.connection.on("error", (err) => {
-            console.error("❌ MongoDB connection error:", err);
-        });
-    } catch (error) {
-        console.error("❌ MongoDB connection failed:", error);
-        process.exit(1);
-    }
+    console.log(`MongoDB Connected: ${connection.connection.host}`);
+  } catch (error) {
+    console.error(`MongoDB connection Error: : ${error.message}`);
+    process.exit(1);
+  }
 };
 
 export const initCollections = async (): Promise<void> => {
-    const db = mongoose.connection.db;
+  const db = mongoose.connection.db;
 
-    if (!db) return;
+  if (!db) return;
 
-    const collections = await db.listCollections({ name: "users" }).toArray();
+  const collections = await db.listCollections({ name: 'users' }).toArray();
 
-    if (collections.length === 0) {
-        await db.createCollection("users");
-        console.log("Users collection created");
-    } else {
-        console.log("Users collection already exists");
-    }
+  if (collections.length === 0) {
+    await db.createCollection('users');
+    console.log('Users Collection Created');
+  } else {
+    console.log('Users collection already exists');
+  }
 };
