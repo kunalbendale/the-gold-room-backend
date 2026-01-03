@@ -11,7 +11,7 @@ const REFRESH_COOKIE_MAX_AGE = 7 * 24 * 60 * 60 * 1000; // 7 days
 /**
  * Generates access & refresh tokens and sets them as HTTP-only cookies
  */
-export const generateTokens = (res: Response, userId: string): void => {
+export const generateTokens = (res: Response, user: any): void => {
   const accessSecret = process.env.JWT_ACCESS_SECRET;
   const refreshSecret = process.env.JWT_REFRESH_SECRET;
 
@@ -19,14 +19,21 @@ export const generateTokens = (res: Response, userId: string): void => {
     throw new Error('JWT secrets are not defined');
   }
 
+  const payload: JwtPayload = {
+    id: user._id.toString(),
+    name: user.name,
+    email: user.email,
+    role: user.role,
+  };
+
   // Access Token (short-lived)
-  const accessToken = jwt.sign({ userId } as JwtPayload, accessSecret, {
+  const accessToken = jwt.sign(payload, accessSecret, {
     expiresIn: ACCESS_TOKEN_EXPIRES_IN,
     algorithm: 'HS256',
   });
 
   // Refresh Token (long-lived)
-  const refreshToken = jwt.sign({ userId } as JwtPayload, refreshSecret, {
+  const refreshToken = jwt.sign(payload, refreshSecret, {
     expiresIn: REFRESH_TOKEN_EXPIRES_IN,
     algorithm: 'HS256',
   });

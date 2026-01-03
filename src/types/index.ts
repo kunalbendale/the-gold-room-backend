@@ -2,7 +2,10 @@ import { Request, Response } from 'express';
 import { Schema, model, Document } from 'mongoose';
 
 export interface JwtPayload {
-  userId: string;
+  id: string;
+  name: string;
+  email: string;
+  role: string;
 }
 
 export interface IUser extends Document {

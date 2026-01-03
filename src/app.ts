@@ -19,20 +19,15 @@ const startServer = async () => {
     await connectDatabase();
     await initCollections();
     app.use('/api/users', userRoutes);
+    app.use(notFound);
+    app.use(errorHandler);
+
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
   } catch (error) {
     console.error('Failed to start server:', error);
   }
 };
 
 startServer();
-
-app.post('/signUp', (req, res) => {});
-
-app.post('/login', (req, res) => {});
-
-app.use(notFound);
-app.use(errorHandler);
-
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});

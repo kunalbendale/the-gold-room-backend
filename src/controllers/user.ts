@@ -12,7 +12,7 @@ export const authUser = async (req: Request, res: Response) => {
   const user = await User.findOne({ email }).select('+password');
 
   if (user && (await user.comparePassword(password))) {
-    generateTokens(res, user._id.toString());
+    generateTokens(res, user);
 
     res.json({
       _id: user._id,
@@ -46,7 +46,7 @@ export const registerUser = async (req: Request, res: Response) => {
   });
 
   if (user) {
-    generateTokens(res, user._id.toString());
+    generateTokens(res, user);
 
     res.status(201).json({
       _id: user._id,

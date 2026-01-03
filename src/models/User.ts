@@ -2,7 +2,7 @@ import { Schema, model, Document } from 'mongoose';
 import bcrypt from 'bcrypt';
 import { IUser } from 'types';
 
-const SALT_ROUNDS = process.env.SALT_ROUNDS;
+const SALT_ROUNDS = Number(process.env.SALT_ROUNDS);
 
 const UserSchema = new Schema<IUser>(
   {
