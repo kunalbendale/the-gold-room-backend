@@ -1,9 +1,9 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
-import { connectDatabase, initCollections } from 'config';
+import { connectDatabase, initCollections } from './config';
 import userRoutes from './routes/user';
-import { errorHandler, notFound } from 'middleware/error';
+import { errorHandler, notFound } from './middleware/error';
 
 dotenv.config();
 

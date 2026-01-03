@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { Response } from 'express';
-import { JwtPayload } from 'types';
+import { JwtPayload } from '../types';
 
 const ACCESS_TOKEN_EXPIRES_IN = '30m';
 const REFRESH_TOKEN_EXPIRES_IN = '7d';

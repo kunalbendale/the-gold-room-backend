@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { generateTokens } from '../utils/generateToken';
 import User from '../models/User';
-import { AuthRequest } from 'types';
+import { AuthRequest } from '../types';
 
 // @desc    Auth user & get token
 // @route   POST /api/users/auth
